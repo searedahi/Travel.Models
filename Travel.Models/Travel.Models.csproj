@@ -5,6 +5,7 @@
     <AssemblyName>Travel.Models</AssemblyName>
     <RootNamespace>Travel.Models</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
