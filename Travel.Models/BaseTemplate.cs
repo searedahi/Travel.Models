@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Experience.Models
+﻿namespace Travel.Models
 {
     public class BaseTemplate : IBaseTemplate
     {

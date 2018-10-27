@@ -1,4 +1,4 @@
-﻿namespace Experience.Models
+﻿namespace Travel.Models
 {
     public interface IBaseTemplate
     {
