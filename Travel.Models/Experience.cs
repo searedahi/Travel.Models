@@ -16,6 +16,8 @@ namespace Travel.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public decimal TaxPercentage { get; set; }
+
         public ICompany Company { get; set; }
         public string Headline { get; set; }
         public string DescriptionSafeHtml { get; set; }

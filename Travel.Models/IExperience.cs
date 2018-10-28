@@ -17,6 +17,8 @@ namespace Travel.Models
         string Location { get; set; }
         string ImageCdnUrl { get; set; }
         bool IsPickupEverOffered { get; set; }
+        decimal TaxPercentage { get; set; }
+
         IList<string> DescriptionBullets { get; set; }
         IList<ICustomerPrototype> CustomerPrototypes { get; set; }
         IList<IImageInfo> Images { get; set; }
