@@ -1,6 +1,6 @@
 ﻿namespace Travel.Models
 {
-    public interface IAddressInfo
+    public interface IAddressInfo : IBaseTemplate
     {
         string City { get; set; }
         string Country { get; set; }

@@ -2,12 +2,11 @@
 
 namespace Travel.Models
 {
-    public interface IExperience : IProduct
+    public interface IExperience : IProduct, IBaseTemplateWithPk
     {
         /// <summary>
         /// Fareharbor primary key.
         /// </summary>
-        int Pk { get; set; }
         int Duration { get; set; }
         string Headline { get; set; }
         string DescriptionSafeHtml { get; set; }

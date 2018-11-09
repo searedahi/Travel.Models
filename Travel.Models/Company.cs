@@ -4,7 +4,6 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
         public string ShortName { get; set; }
         public string Currency { get; set; }
         public string Location { get; set; }
@@ -17,7 +16,7 @@
         public string FaqSafeHtml { get; set; }
         public string Intro { get; set; }
         public string IntroSafeHtml { get; set; }
-        public IAddressInfo Address { get; set; }
-        public IAddressInfo BillingAddress { get; set; }
+        public AddressInfo Address { get; set; }
+        public AddressInfo BillingAddress { get; set; }
     }
 }

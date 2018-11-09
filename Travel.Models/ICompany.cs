@@ -13,8 +13,8 @@
         string FaqSafeHtml { get; set; }
         string Intro { get; set; }
         string IntroSafeHtml { get; set; }
-        IAddressInfo Address { get; set; }
-        IAddressInfo BillingAddress { get; set; }
+        AddressInfo Address { get; set; }
+        AddressInfo BillingAddress { get; set; }
         bool IsFareHarborVendor { get; set; }
     }
 }

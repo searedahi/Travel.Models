@@ -1,6 +1,6 @@
 ﻿namespace Travel.Models
 {
-    public class AddressInfo : IAddressInfo
+    public class AddressInfo : BaseTemplateWithPk, IAddressInfo
     {
         public string Street { get; set; }
         public string PostalCode { get; set; }
