@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Travel.Models
 {
@@ -9,6 +10,8 @@ namespace Travel.Models
         /// </summary>
         int Duration { get; set; }
         string Headline { get; set; }
+        string Description { get; set; }
+        string DescriptionShort { get; }
         string DescriptionSafeHtml { get; set; }
         string DescriptionText { get; set; }
         string CancellationPolicy { get; set; }
@@ -17,10 +20,14 @@ namespace Travel.Models
         string ImageCdnUrl { get; set; }
         bool IsPickupEverOffered { get; set; }
         decimal TaxPercentage { get; set; }
+        DateTime NextAvailableDate { get; set; }
+        string NextAvailableDateFormatted { get; set; }
 
         IList<string> DescriptionBullets { get; set; }
         IList<ICustomerPrototype> CustomerPrototypes { get; set; }
         IList<IImageInfo> Images { get; set; }
         IList<ILocationInfo> Locations { get; set; }
+        IList<IAvailability> Availabilities { get; set; }
+
     }
 }

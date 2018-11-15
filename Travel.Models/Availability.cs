@@ -9,6 +9,6 @@ namespace Travel.Models
         public string EndAt { get; set; }
         public int Capactiy { get; set; }
 
-        public IList<ICustomerPrototype> CustomerTypeRates { get;set;}
+        public IList<ICustomerTypeRate> CustomerTypeRates { get;set;}
     }
 }

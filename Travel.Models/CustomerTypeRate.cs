@@ -1,6 +1,6 @@
 ﻿namespace Travel.Models
 {
-    public class CustomerTypeRate
+    public class CustomerTypeRate : ICustomerTypeRate
     {
         public int Pk { get; set; }
         public int Total { get; set; }
