@@ -19,7 +19,7 @@ namespace Travel.Models
         {
             get
             {
-                if (Description.Length > 160)
+                if (Description != null && Description.Length > 160)
                 {
                     return Description.Substring(0, 160);
                 }
@@ -47,14 +47,21 @@ namespace Travel.Models
         public IList<ILocationInfo> Locations { get; set; }
         public IList<IAvailability> Availabilities { get; set; }
 
+        private DateTime _nextAvailableDate = new DateTime(1);
         public DateTime NextAvailableDate
         {
             get
             {
-                if (Availabilities.Any())
+                if (_nextAvailableDate.Ticks != 1)
+                {
+                    return _nextAvailableDate;
+                }
+
+                if (Availabilities != null && Availabilities.Any())
                 {
                     var startsAT = Availabilities.OrderBy(a => a.StartAt).FirstOrDefault().StartAt;
-                    return DateTime.Parse(startsAT);
+                    _nextAvailableDate = DateTime.Parse(startsAT);
+                    return _nextAvailableDate;
                 }
                 else
                 {
@@ -68,22 +75,21 @@ namespace Travel.Models
         {
             get
             {
-                if (Availabilities.Any())
-                {
-                    var startsAT = Availabilities.OrderBy(a => a.StartAt).FirstOrDefault().StartAt;
-                    var nextDate = DateTime.Parse(startsAT);
+                TimeSpan ts = NextAvailableDate - DateTime.Now;
 
-                    if (nextDate.DayOfYear.Equals(DateTime.Now.DayOfYear))
+                if (ts.Hours > 3)
+                {
+                    if (NextAvailableDate.DayOfYear.Equals(DateTime.Now.DayOfYear))
                     {
-                        return $"Today at {nextDate.TimeOfDay}";
+                        return $"Today at {NextAvailableDate.TimeOfDay}";
                     }
-                    else if (nextDate.CompareTo(DateTime.Now.AddDays(6)) < 6)
+                    else if (NextAvailableDate.CompareTo(DateTime.Now.AddDays(6)) < 6)
                     {
-                        return $"This {nextDate.DayOfWeek.ToString()} at {nextDate.TimeOfDay}";
+                        return $"This {NextAvailableDate.DayOfWeek.ToString()} at {NextAvailableDate.TimeOfDay}";
                     }
                     else
                     {
-                        return nextDate.ToString("mmm DD");
+                        return NextAvailableDate.ToString("mmm DD");
                     }
 
                 }
