@@ -11,6 +11,35 @@ namespace Travel.Models
         /// </summary>
         public int Pk { get; set; }
         public int Duration { get; set; }
+        public string DurationFormatted
+        {
+            get
+            {
+                if (Duration > 0)
+                {
+                    int remainder = 0;
+                    var hours = Math.DivRem(Duration, 60, out remainder);
+
+                    var formattedDuration = $"{hours / 60} hours";
+
+                    if (hours < 1)
+                    {
+                        return $"{Duration} minutes.";
+                    }
+
+                    if(remainder > 0)
+                    {
+                        formattedDuration = $"{hours} - {hours + 1} hours";
+                    }
+                    return formattedDuration;
+                }
+                else
+                {
+                    return "Varies, see details.";
+                }
+            }
+            set { }
+        }
         public string Currency { get; set; }
         public string Location { get; set; }
         public string ShortName { get; set; }
@@ -47,25 +76,27 @@ namespace Travel.Models
         public IList<ILocationInfo> Locations { get; set; }
         public IList<IAvailability> Availabilities { get; set; }
 
-        private DateTime _nextAvailableDate = new DateTime(1);
+        private DateTime _nextAvailableDate;
         public DateTime NextAvailableDate
         {
             get
             {
-                if (_nextAvailableDate.Ticks != 1)
+                if (_nextAvailableDate.Year != 1)
                 {
                     return _nextAvailableDate;
                 }
 
                 if (Availabilities != null && Availabilities.Any())
                 {
-                    var startsAT = Availabilities.OrderBy(a => a.StartAt).FirstOrDefault().StartAt;
+                    var startsAT = Availabilities.OrderBy(a => a.StartAt
+                    
+                    ).FirstOrDefault().StartAt;
                     _nextAvailableDate = DateTime.Parse(startsAT);
                     return _nextAvailableDate;
                 }
                 else
                 {
-                    return DateTime.Now;
+                    return DateTime.Now.AddYears(1);
                 }
             }
             set
@@ -77,7 +108,7 @@ namespace Travel.Models
             {
                 TimeSpan ts = NextAvailableDate - DateTime.Now;
 
-                if (ts.Hours > 3)
+                if (ts.Hours > 0)
                 {
                     if (NextAvailableDate.DayOfYear.Equals(DateTime.Now.DayOfYear))
                     {

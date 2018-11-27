@@ -9,6 +9,7 @@ namespace Travel.Models
         /// Fareharbor primary key.
         /// </summary>
         int Duration { get; set; }
+        string DurationFormatted { get; set; }
         string Headline { get; set; }
         string Description { get; set; }
         string DescriptionShort { get; }
