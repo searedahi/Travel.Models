@@ -21,8 +21,10 @@ namespace Travel.Models
         string ImageCdnUrl { get; set; }
         bool IsPickupEverOffered { get; set; }
         decimal TaxPercentage { get; set; }
+        IAvailability NextAvailability { get; set; }
         DateTime NextAvailableDate { get; set; }
         string NextAvailableDateFormatted { get; set; }
+        decimal CurrentAdultPrice { get; set; }
 
         IList<string> DescriptionBullets { get; set; }
         IList<ICustomerPrototype> CustomerPrototypes { get; set; }

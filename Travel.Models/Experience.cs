@@ -27,7 +27,7 @@ namespace Travel.Models
                         return $"{Duration} minutes.";
                     }
 
-                    if(remainder > 0)
+                    if (remainder > 0)
                     {
                         formattedDuration = $"{hours} - {hours + 1} hours";
                     }
@@ -76,6 +76,35 @@ namespace Travel.Models
         public IList<ILocationInfo> Locations { get; set; }
         public IList<IAvailability> Availabilities { get; set; }
 
+
+        private IAvailability _nextAvailability;
+        public IAvailability NextAvailability
+        {
+            get
+            {
+                if (_nextAvailability != null && DateTime.Parse(_nextAvailability.StartAt).Year != 1)
+                {
+                    return _nextAvailability;
+                }
+
+                if (Availabilities != null && Availabilities.Any())
+                {
+                    var avail = Availabilities
+                        .OrderBy(a => DateTime.Parse(a.StartAt))
+                        .FirstOrDefault();
+
+                    _nextAvailability = avail;
+                    return _nextAvailability;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            { }
+        }
+
         private DateTime _nextAvailableDate;
         public DateTime NextAvailableDate
         {
@@ -86,12 +115,9 @@ namespace Travel.Models
                     return _nextAvailableDate;
                 }
 
-                if (Availabilities != null && Availabilities.Any())
+                if (NextAvailability != null)
                 {
-                    var startsAT = Availabilities.OrderBy(a => a.StartAt
-                    
-                    ).FirstOrDefault().StartAt;
-                    _nextAvailableDate = DateTime.Parse(startsAT);
+                    _nextAvailableDate = DateTime.Parse(NextAvailability.StartAt);
                     return _nextAvailableDate;
                 }
                 else
@@ -131,6 +157,39 @@ namespace Travel.Models
             }
             set
             { }
+        }
+
+        public decimal CurrentAdultPrice
+        {
+            get
+            {
+                if (CustomerPrototypes != null && CustomerPrototypes.Any())
+                {
+
+                    var maxPrice = CustomerPrototypes
+                        .Where(p => p.DisplayName.Contains("adult"))
+                        .Select(p => p.Total)
+                        .ToList();
+
+                    if (maxPrice != null && maxPrice.Any())
+                    {
+                        return maxPrice.Max();
+                    }
+                    //if (NextAvailableDate.Year != 1 && NextAvailability != null)
+                    //{
+                    //var prices = NextAvailability.CustomerTypeRates.Select(c => c.CustomerPrototype).ToList();
+                    //if (prices != null && prices.Any())
+                    //{
+                    //    return prices
+                    //        .Where(p => p.DisplayName.Contains("adult"))
+                    //        .Select(p => p.Total)
+                    //        .Max();
+                    //}
+                }
+
+                return 0;
+            }
+            set { }
         }
     }
 }
