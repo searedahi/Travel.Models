@@ -165,26 +165,17 @@ namespace Travel.Models
             {
                 if (CustomerPrototypes != null && CustomerPrototypes.Any())
                 {
-
-                    var maxPrice = CustomerPrototypes
-                        .Where(p => p.DisplayName.Contains("adult"))
+                    var prices = CustomerPrototypes
+                        .Where(p => p.DisplayName.Contains("adult", StringComparison.CurrentCultureIgnoreCase))
                         .Select(p => p.Total)
                         .ToList();
 
-                    if (maxPrice != null && maxPrice.Any())
+                    if (prices != null && prices.Any())
                     {
-                        return maxPrice.Max();
+                        decimal maxPrice = prices.Max();
+
+                        return (maxPrice / 100);
                     }
-                    //if (NextAvailableDate.Year != 1 && NextAvailability != null)
-                    //{
-                    //var prices = NextAvailability.CustomerTypeRates.Select(c => c.CustomerPrototype).ToList();
-                    //if (prices != null && prices.Any())
-                    //{
-                    //    return prices
-                    //        .Where(p => p.DisplayName.Contains("adult"))
-                    //        .Select(p => p.Total)
-                    //        .Max();
-                    //}
                 }
 
                 return 0;
