@@ -117,7 +117,8 @@ namespace Travel.Models
 
                 if (NextAvailability != null)
                 {
-                    _nextAvailableDate = DateTime.Parse(NextAvailability.StartAt);
+                    var dtOffset = DateTimeOffset.Parse(NextAvailability.StartAt);
+                    _nextAvailableDate = dtOffset.DateTime;
                     return _nextAvailableDate;
                 }
                 else
@@ -134,25 +135,38 @@ namespace Travel.Models
             {
                 TimeSpan ts = NextAvailableDate - DateTime.Now;
 
-                if (ts.Hours > 0)
+                if (ts.Hours >= 3)
                 {
-                    if (NextAvailableDate.DayOfYear.Equals(DateTime.Now.DayOfYear))
+                    TimeSpan diff = DateTime.Now.AddDays(6) - NextAvailableDate;
+                    if (diff.TotalDays >= 0 && diff.TotalDays <= 6)
                     {
-                        return $"Today at {NextAvailableDate.TimeOfDay}";
+                        // traps end of year
+                        return $"This {NextAvailableDate.DayOfWeek.ToString()} at {NextAvailableDate.ToString("h:mm tt")}";
                     }
-                    else if (NextAvailableDate.CompareTo(DateTime.Now.AddDays(6)) < 6)
+                    else if (!NextAvailableDate.Year.Equals(DateTime.Now.Year))
                     {
-                        return $"This {NextAvailableDate.DayOfWeek.ToString()} at {NextAvailableDate.TimeOfDay}";
+                        return $"Next {NextAvailableDate.ToString("MMM dd, yyyy")}";
                     }
                     else
                     {
-                        return NextAvailableDate.ToString("mmm DD");
+                        //Normal middle of the year dates
+                        if (NextAvailableDate.DayOfYear.Equals(DateTime.Now.DayOfYear))
+                        {
+                            return $"Today at {NextAvailableDate.ToString("h:mm tt")}";
+                        }
+                        else
+                        {
+                            return $"{NextAvailableDate.ToString("MMM dd, yyyy")} at { NextAvailableDate.ToString("h:mm tt")}";
+                        }
                     }
-
+                }
+                else if(ts.Hours >= 0)
+                {
+                    return "It's too soon before the start to book online.  Call for availablilty.";
                 }
                 else
                 {
-                    return "Call for availablilty.";
+                    return "Call Marty McFly, that's in the past...";
                 }
             }
             set
