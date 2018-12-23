@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Travel.Models
 {
@@ -9,5 +10,8 @@ namespace Travel.Models
         string EndAt { get; set; }
         int Pk { get; set; }
         string StartAt { get; set; }
+        DateTime StartAtCasted { get; set; }
+        DateTime EndAtCasted { get; set; }
+
     }
 }
