@@ -74,6 +74,7 @@ namespace Travel.Models
         public IList<ICustomerPrototype> CustomerPrototypes { get; set; }
         public IList<IImageInfo> Images { get; set; }
         public IList<ILocationInfo> Locations { get; set; }
+        public IList<IProTip> ProTips { get; set; }
         public IList<IAvailability> Availabilities { get; set; }
 
 

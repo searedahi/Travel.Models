@@ -2,7 +2,7 @@
 
 namespace TravelMinded.Models
 {
-    public class ProTip : IBaseTemplate
+    public class ProTip : IBaseTemplate, IProTip
     {
         public int Id { get; set; }
         public string Name { get; set; }

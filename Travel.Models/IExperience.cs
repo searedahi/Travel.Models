@@ -31,6 +31,7 @@ namespace Travel.Models
         IList<IImageInfo> Images { get; set; }
         IList<ILocationInfo> Locations { get; set; }
         IList<IAvailability> Availabilities { get; set; }
+        IList<IProTip> ProTips { get; set; }
 
     }
 }
