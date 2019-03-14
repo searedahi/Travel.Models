@@ -8,6 +8,6 @@
         /// </summary>
         int Pk { get; set; }
         int Total { get; set; }
-        int TravelMindedCustomerTypeId { get; set; }
+        int Id { get; set; }
     }
 }
